@@ -1,5 +1,20 @@
 /**
- * Object with the lables, this is commonly accessed between options and content
+ * 
+ * Copyright 2014 by Yiannis Chronakis <jchronakis@gmail.com>
+ *
+ * This file is part of some open source application.
+ * 
+ * Both the file and the application are Licensed under
+ * GNU General Public License 3.0 or later.  Some rights reserved.
+ * 
+ * See LICENCE file
+ * 
+ * @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
+ */
+
+
+/**
+ * This turns out to be the application common object and needs to be renamed
  */
 var labelMap = {
 

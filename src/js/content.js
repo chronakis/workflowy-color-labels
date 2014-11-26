@@ -1,17 +1,20 @@
 /**
  * 
- *
- *  Copyright 2014 by Yiannis Chronakis <jchronakis@gmail.com>
+ * Copyright 2014 by Yiannis Chronakis <jchronakis@gmail.com>
  *
  * This file is part of some open source application.
  * 
- * Licensed under GNU General Public License 3.0 or later. 
- * Some rights reserved. See LICENCE
+ * Both the file and the application are Licensed under
+ * GNU General Public License 3.0 or later.  Some rights reserved.
+ * 
+ * See LICENCE file
  * 
  * @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
  */
 
-// I prefer this mode
+/**
+ * I prefer this mode
+ */
 jQuery.noConflict();
 
 /**
