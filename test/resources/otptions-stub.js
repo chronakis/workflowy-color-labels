@@ -3,7 +3,7 @@
   */
 stubOptions = {
 	options: {
-		enabled: true;
+		enabled: true,
 		labels: {
 				"next": {
 					"applyTo": "label",
