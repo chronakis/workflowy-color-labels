@@ -1,0 +1,41 @@
+<!doctype html>
+<script type="text/javascript" src="../js/modules/common.js"></script>
+<script type="text/javascript" src="../js/options.js"></script>
+<style type="text/css">
+	#options {
+		width:480px;
+		padding: 0px 10px;
+		font-family: Helvetica, Ubuntu, Arial, sans-serif;
+	}
+	
+	h1 {
+		font-size: 2em;
+	}
+	
+	#raw-colors {
+		width: 100%;
+		height: 256px;
+		font-family: monospace;
+	}
+	#bottom {
+		text-align: right;
+	}
+</style>
+
+<div id="options">
+<h1>Label colors for Workflowy</h1>
+<p>
+	<label for="enabled">Extension is enabled</label>
+	<input type="checkbox" id="enabled" name="enabled"/>
+</p>
+<p>
+	<label for="raw-colors">Please create your own color map below</label>
+	<textarea id="raw-colors" name="raw-colors" wrap="off"></textarea>
+</p>
+<p id="bottom">
+	<input type="button" name="restore" id="restore" value="Restore Defaults"/>
+	<input type="button" name="cancel" id="cancel" value="Reload saved"/>
+	<input type="button" name="validate" id="validate" value="Check syntax"/>
+	<input type="button" name="save" id="save" value="Save"/>
+</p>
+</div>

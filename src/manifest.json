@@ -1,0 +1,38 @@
+{
+  "name": "Colourful Workflowy",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Enables colourful labels in Workflowy",
+  "homepage_url": "http://github.com/chronakis",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ],
+    "persistent": false
+  },
+  "options_page": "html/options.html",
+  "page_action": {
+    "default_icon": "images/icon19.png",
+    "default_title": "page action demo",
+    "default_popup": "html/options.html"
+  },
+  "permissions" : [
+    "declarativeContent", "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [ "https://workflowy.com/", "http://workflowy.com/" ],
+      "js":      [ "js/lib/jquery.min.js", "js/modules/common.js", "js/content.js" ]
+    },
+    {
+      "matches": [ "https://workflowy.com/", "http://workflowy.com/" ],
+      "css":     [ "css/content.css" ]
+    }
+  ]
+}
