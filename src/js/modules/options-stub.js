@@ -1,7 +1,7 @@
 /**
   * stub options file
   */
-stubOptions = {
+var stubOptions = {
 	options: {
 		enabled: true,
 		labels: {

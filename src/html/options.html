@@ -14,44 +14,78 @@
  * @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
  */
  -->
-<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
-<script type="text/javascript" src="../js/modules/common.js"></script>
-<script type="text/javascript" src="../js/options.js"></script>
-<style type="text/css">
-	#options {
-		width:480px;
-		padding: 0px 10px;
-		font-family: Helvetica, Ubuntu, Arial, sans-serif;
-	}
-	
-	h1 {
-		font-size: 2em;
-	}
-	
-	#raw-colors {
-		width: 100%;
-		height: 256px;
-		font-family: monospace;
-	}
-	#bottom {
-		text-align: right;
-	}
-</style>
-
-<div id="options">
-<h1>Label colors for Workflowy</h1>
-<p>
-	<label for="enabled">Extension is enabled</label>
-	<input type="checkbox" id="enabled" name="enabled"/>
-</p>
-<p>
-	<label for="raw-colors">Please create your own color map below</label>
-	<textarea id="raw-colors" name="raw-colors" wrap="off"></textarea>
-</p>
-<p id="bottom">
-	<input type="button" name="restore" id="restore" value="Restore Defaults"/>
-	<input type="button" name="cancel" id="cancel" value="Reload saved"/>
-	<input type="button" name="validate" id="validate" value="Check syntax"/>
-	<input type="button" name="save" id="save" value="Save"/>
-</p>
+<head>
+	<link rel="stylesheet" href="../css/options.css"/>
+	<link rel="stylesheet" href="../css/options-preview.css"/>
+	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/modules/common.js"></script>
+	<script type="text/javascript" src="../js/modules/options-stub.js"></script>
+	<script type="text/javascript" src="../js/options.js"></script>
+</head>
+<body>
+<div id="debug">
+	<p>
+		<label for="raw-colors">Please create your own color map below</label>
+		<textarea id="raw-colors" name="raw-colors" wrap="off"></textarea>
+	</p>
+	<p id="bottom">
+		<input type="button" name="restore" id="restore" value="Restore Defaults"/>
+		<input type="button" name="cancel" id="cancel" value="Reload saved"/>
+		<input type="button" name="validate" id="validate" value="Check syntax"/>
+		<input type="button" name="save" id="save" value="Save"/>
+	</p>
 </div>
+<div id="options">
+	<h1>Label colors for Workflowy</h1>
+	<p>
+		<label for="enabled">Extension is enabled</label>
+		<input type="checkbox" id="enabled" name="enabled"/>
+	</p>
+	<div id="being-edited" class="setting">
+		<div class="preview-outer">
+			<div class="preview-title">
+				Preview:
+			</div>
+			<div class="preview">
+				<div class="project task">
+					<div class="highlight"></div>
+					<div class="name ">
+						<a class="bullet" href="#" onclick="return false;"></a>
+						<div class="content" contenteditable="">
+							<span class="contentTag">#<span	class="contentTagText">urgent</span></span> please do this thing urgently!
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="board">
+			<div class="tagopts">
+				<div class="coloropt">Color</div>
+				<div class="highlightopt">Highlight</div>
+				<div class="underlineopt">Underline</div>
+			</div>
+			<div class="textopts">
+				<div class="coloropt">Color</div>
+				<div class="highlightopt">Highlight</div>
+			</div>
+			<div style="clear: left"></div>
+		</div>
+	</div>
+	<div id="proto-setting" class="setting">
+		<div class="board">
+		</div>
+		<div class="preview">
+			<div class="project task">
+				<div class="highlight"></div>
+				<div class="name ">
+					<a class="bullet" href="#" onclick="return false;"></a>
+					<div class="content" contenteditable="">
+						<span class="contentTag">#<span	class="contentTagText">urgent</span></span> please do this thing urgently!
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearBoth"></div>
+	</div>
+</div>
+</body>

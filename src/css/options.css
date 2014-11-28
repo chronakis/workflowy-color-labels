@@ -1,0 +1,69 @@
+body {
+	font-family: Helvetica, Ubuntu, Arial, sans-serif;
+}
+	
+h1 {
+	font-size: 2em;
+}
+
+#debug {
+	float: right;
+	width: 360px;
+	height: 500px;
+	padding: 10px;
+}
+
+#raw-colors {
+	width: 100%;
+	height: 400px;
+	font-family: monospace;
+}
+
+#options {
+	margin-right: 380px;
+	padding: 0px 10px;
+}
+
+#bottom {
+	text-align: right;
+}
+
+#proto-setting {
+	display: none;
+}
+
+.setting {
+}
+
+.preview-outer {
+	border: thin solid pink;
+	padding: 10px;
+}
+
+.preview-title {
+	float: left;
+	padding: 12px;
+	width: 140px;	
+}
+
+.preview {
+	margin-left: 200px;
+	padding: 8px;	
+	border-radius: 8px;
+	border: thin solid #eee;
+}
+
+.board {
+	padding: 8px;	
+	border: thin solid blue;
+}
+
+.board .tagopts {
+	float: left;
+	width: 45%;
+}
+
+.board .textpts {
+	float: left;
+	width: 45%;
+}

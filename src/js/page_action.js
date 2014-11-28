@@ -21,21 +21,18 @@ var enabledCheck;
 
 /* Load stuff on load */
 var loadCallback = function(outerOpts) {
-	if (chrome && chrome.runtime && chrome.runtime.error) {
-		console.log("Chrome runtime error: " + chrome.runtime.error);
-		return;
-	}
-	
-	// Chrome will nest my object in one with the same name:
+	// Chrome will next my object in one with the same name:
 	// save: options: {a:1, b:2}
 	// load: options.options {a:1, b:2}
-	var opts = outerOpts.options; // the data will have my options in the thing called "options"
-	gopts = opts;
-	rawColorsText.value = opts.labels;
-	enabledCheck.checked = opts.enabled;
+	if (!chrome.runtime.error) {
+		var opts = outerOpts.options; // the data will have my options in the thing called "options"
+		gopts = opts;
+		rawColorsText.value = opts.labels;
+		enabledCheck.checked = opts.enabled;
+	}
 };
 	
-jQuery(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
 	// Assign shortcuts
 	rawColorsText = document.getElementById("raw-colors");
 	enabledCheck  = document.getElementById("enabled");
@@ -46,7 +43,9 @@ jQuery(document).ready(function() {
 		testMode = false;
 	} catch (err) {
 		testMode = true;
-		loadCallback(stubOptions);
+		jQuery.getScript('../../test/resources/script.js', function() {
+			loadCallback(stubOptions);
+		});
 	}
 	
 	document.getElementById("save").onclick = function() {
@@ -69,14 +68,13 @@ jQuery(document).ready(function() {
 				console.log("Runtime error.");
 			}
 		});
-
-// Not used, but it took me some time to find about it, so I leave it here
-//		// Send message to content to reload
-//		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//		  chrome.tabs.sendMessage(tabs[0].id, {action: "saved"}, function(response) {
-//			console.log("Reply was: " + response.reply);
-//		  });
-//		});		
+		
+		// Send message to content to reload
+		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		  chrome.tabs.sendMessage(tabs[0].id, {action: "saved"}, function(response) {
+			console.log("Reply was: " + response.reply);
+		  });
+		});		
 		
 		window.close();
 	}
@@ -102,5 +100,7 @@ jQuery(document).ready(function() {
 		//labelMap.addSimpleColors(arColors);
 		rawColorsText.value = JSON.stringify(labelMap.labels, null, '\t');
 	}
+	
 });
+
 

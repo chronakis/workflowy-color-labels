@@ -1,0 +1,43 @@
+/** For workflow preview */
+
+.project {
+	position: relative;
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.name {
+	padding-left: 28px;
+}
+
+.bullet {
+	display: inline-block;
+	margin-top: 5px;
+	background-image: url(../images/bullet.svg);
+	position: absolute;
+	left: 0px;
+	z-index: 6;
+	margin-left: 1px;
+	height: 18px;
+	width: 18px;
+}
+
+.content {
+	padding: 4px 0;
+	line-height: 20px;
+	min-height: 20px;
+	position: relative;
+	display: block;
+	letter-spacing: inherit;
+	text-decoration: none;
+}
+
+.content .contentTag {
+	color: #999;
+	padding: 0 1px;
+	margin: 0 -1px;
+	border-radius: 3px;
+}
+
+.contentTagText {
+	text-decoration: underline;
+}
