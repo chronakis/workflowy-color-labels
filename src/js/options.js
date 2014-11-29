@@ -19,8 +19,32 @@ var gopts;
 var rawColorsText;
 var enabledCheck;
 
+function prepList(opts) {
+	var container = $('#options');
+	$.each(opts.labels, function(i, v) {
+		var setting = divs.setting.clone();
+		$('.tagname', setting).val(i);
+		$('.contentTagText', setting).text(i);
+		$('.contentText', setting).text(loremIpsoum.random());
+		
+		// Bindings
+		$('.edit', setting).click(function(e) {
+			divs.board.appendTo(setting);
+		});
+		
+		$('.delete', setting).click(function(e) {
+			setting.remove();
+		});
+		$('.tagname', setting).keyup(function(e) {
+			$('.contentTagText', setting).text($(this).val());
+		});
+		
+		setting.appendTo(container);
+	});  
+}
+
 /* Load stuff on load */
-var loadCallback = function(outerOpts) {
+function loadCallback (outerOpts) {
 	if (chrome && chrome.runtime && chrome.runtime.error) {
 		console.log("Chrome runtime error: " + chrome.runtime.error);
 		return;
@@ -33,74 +57,31 @@ var loadCallback = function(outerOpts) {
 	gopts = opts;
 	rawColorsText.value = opts.labels;
 	enabledCheck.checked = opts.enabled;
-};
 	
+	prepList(opts);
+};
+
+var divs;
+
 jQuery(document).ready(function() {
 	// Assign shortcuts
 	rawColorsText = document.getElementById("raw-colors");
 	enabledCheck  = document.getElementById("enabled");
-
-	// Load
+	
+	legacyBindings();
+	
+	divs = {
+			setting: $('.setting').detach().show(),
+			board:   $('.board').detach().show()
+	}
+	
+	// Load and trigger everything
 	try {
 		chrome.storage.sync.get("options", loadCallback);
 		testMode = false;
 	} catch (err) {
 		testMode = true;
 		loadCallback(stubOptions);
-	}
-	
-	document.getElementById("save").onclick = function() {
-		try{
-			JSON.parse(rawColorsText.value);
-		}
-		catch(err) {
-			alert("Could not save because JSON syntax is wrong.\n\nPlease consider restoring defaults or last saved version");
-			return;
-		}
-	
-		// prepare the data to save
-		var opts = {
-			enabled: enabledCheck.checked,
-			labels:  rawColorsText.value
-			};
-		
-		chrome.storage.sync.set({'options': opts}, function() {
-			if (chrome.runtime.error) {
-				console.log("Runtime error.");
-			}
-		});
-
-// Not used, but it took me some time to find about it, so I leave it here
-//		// Send message to content to reload
-//		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//		  chrome.tabs.sendMessage(tabs[0].id, {action: "saved"}, function(response) {
-//			console.log("Reply was: " + response.reply);
-//		  });
-//		});		
-		
-		window.close();
-	}
-
-	document.getElementById("cancel").onclick = function() {
-		chrome.storage.sync.get("options", loadCallback);
-	}
-
-	document.getElementById("validate").onclick = function() {
-		try{
-			JSON.parse(rawColorsText.value);
-			alert("Valid JSON!");
-		}
-		catch(err) {
-			alert("Not a valid JSON syntax.\n\nPlease consider restoring defaults or last saved version");
-		}
-	}
-	
-	document.getElementById("restore").onclick = function() {
-		enabledCheck.checked = true;
-		labelMap.clear();
-		labelMap.defaults();
-		//labelMap.addSimpleColors(arColors);
-		rawColorsText.value = JSON.stringify(labelMap.labels, null, '\t');
 	}
 });
 

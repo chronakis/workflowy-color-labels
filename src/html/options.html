@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="../css/options-preview.css"/>
 	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/modules/common.js"></script>
-	<script type="text/javascript" src="../js/modules/options-stub.js"></script>
+	<script type="text/javascript" src="../js/modules/options-data.js"></script>
 	<script type="text/javascript" src="../js/options.js"></script>
 </head>
 <body>
@@ -41,51 +41,49 @@
 		<label for="enabled">Extension is enabled</label>
 		<input type="checkbox" id="enabled" name="enabled"/>
 	</p>
-	<div id="being-edited" class="setting">
+	
+	<div class="setting" style="display: none;">
 		<div class="preview-outer">
 			<div class="preview-title">
-				Preview:
+				<input type="button" class="edit" id="edit" value="E"/>
+				<input type="button" class="delete" id="delete" value="D"/>
+				<input type="text" class="tagname" value="#urgent"/>
 			</div>
 			<div class="preview">
 				<div class="project task">
 					<div class="highlight"></div>
 					<div class="name ">
-						<a class="bullet" href="#" onclick="return false;"></a>
-						<div class="content" contenteditable="">
-							<span class="contentTag">#<span	class="contentTagText">urgent</span></span> please do this thing urgently!
+						<span class="bullet"></span>
+						<div class="content">
+							<span class="contentTag">#<span	class="contentTagText">urgent</span></span> <span class="contentText">Lorem ipsum</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="board">
-			<div class="tagopts">
-				<div class="coloropt">Color</div>
-				<div class="highlightopt">Highlight</div>
-				<div class="underlineopt">Underline</div>
-			</div>
-			<div class="textopts">
-				<div class="coloropt">Color</div>
-				<div class="highlightopt">Highlight</div>
-			</div>
-			<div style="clear: left"></div>
-		</div>
 	</div>
-	<div id="proto-setting" class="setting">
-		<div class="board">
-		</div>
-		<div class="preview">
-			<div class="project task">
-				<div class="highlight"></div>
-				<div class="name ">
-					<a class="bullet" href="#" onclick="return false;"></a>
-					<div class="content" contenteditable="">
-						<span class="contentTag">#<span	class="contentTagText">urgent</span></span> please do this thing urgently!
-					</div>
-				</div>
+	<div class="board" style="display:none">
+		<div class="tagopts">
+			<div class="opttitle">
+				<input type="checkbox" name="tagcheck" id="tagcheck"/>Colorize tag
+			</div>
+			<div class="optbody">
+				<div class="coloropt">Color:  Auto: <input type="checkbox" id="tagautofg"/>, Custom: <input type="text" id="tagfgbox" /></div>
+				<div class="highlightopt">Highlight:  None: <input type="checkbox" id="tagautobg"/>, Custom: <input type="text" id="tagbgbox" /></div>
+				<div class="underlineopt">Do not underline: <input type="checkbox" id="tagnounder"/></div>
 			</div>
 		</div>
-		<div class="clearBoth"></div>
+		<div class="textopts">
+			<div class="opttitle">
+				<input type="checkbox" name="tagcheck" id="tagcheck"/>Colorize text
+			</div>
+			<div class="optbody">
+				<div class="coloropt">Color:  Auto: <input type="checkbox" id="textautofg"/>, Custom: <input type="text" id="texfgbox" /></div>
+				<div class="highlightopt">Highlight:  None: <input type="checkbox" id="textautobg"/>, Custom: <input type="text" id="textbgbox" /></div>
+			</div>
+		</div>
+		<div style="clear: left"></div>
 	</div>
+	
 </div>
 </body>

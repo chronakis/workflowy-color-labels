@@ -33,37 +33,47 @@ h1 {
 }
 
 .setting {
+	border-radius: 8px;
+	border: 2px solid #eee;
 }
 
 .preview-outer {
-	border: thin solid pink;
-	padding: 10px;
+	padding: 5px 5px;
+	margin: 0px 0;
 }
 
 .preview-title {
 	float: left;
-	padding: 12px;
-	width: 140px;	
+	padding:5px;
+	width: 200px;	
+}
+
+.preview-title input[type=text] {
+	margin-left: 10px;	
 }
 
 .preview {
-	margin-left: 200px;
-	padding: 8px;	
-	border-radius: 8px;
-	border: thin solid #eee;
+	margin-left: 220px;
+	padding: 0px 4px;	
 }
 
 .board {
-	padding: 8px;	
-	border: thin solid blue;
+	padding: 8px;
+	line-height: 2em;
+	border-top: thin solid #eee;
+}
+
+.board input[type=checkbox] {
+	margin-right: 10px;
+	vertical-align: text-top;
 }
 
 .board .tagopts {
 	float: left;
-	width: 45%;
+	width: 48%;
 }
 
 .board .textpts {
-	float: left;
-	width: 45%;
+	float: right;
+	width: 48%;
 }
