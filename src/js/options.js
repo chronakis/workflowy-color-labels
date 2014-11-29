@@ -29,6 +29,7 @@ var testMode;
 /** For debugging */
 var gopts;
 
+/** legacy */
 var rawColorsText;
 var enabledCheck;
 
@@ -37,6 +38,9 @@ var divs;
 
 /** Holds the editor object */
 var editor;
+
+/** the collection of the settings */
+var settings= {};
 
 function createEditor(board) {
 	var editor = {
@@ -275,16 +279,35 @@ function addSetting(opts, container, val) {
 	
 	$('.delete', setDiv).click(function(e) {
 		setting.destroy();
-		delete opts.labels[val.name];
+		delete settings[val.name];
 	});
 	
 	setDiv.appendTo(container);
+	settings[val.name] = setting;
 	
 	return setting;
 }
 
+/**
+ * Creates a new array of options from the form
+ * @returns 
+ */
+function formToLabels() {
+	var res = {};
+	
+	$.each(settings, function(idx, setting) {
+		var val = setting.fieldsToVal();
+		res[val.name] = val;
+	});
+	
+	return res;
+}
+
 function prepList(opts) {
 	var container = $('#options');
+	
+	divs.enabled.prop('checked', opts.enabled == true);
+	
 	$.each(opts.labels, function(key, val) {
 		addSetting(opts, container, val);
 	});  
@@ -295,6 +318,23 @@ function prepList(opts) {
 		//opts.labels[val.name] = val;
 		var setting = addSetting(container, val);
 		editor.attach(setting);
+	});
+
+	$('.pageactions .save').click(function(e) {
+		// We need to convert settings list to options
+		opts.enabled = divs.enabled.prop('checked');
+		opts.labels = formToLabels();
+		try {
+			chrome.storage.sync.set({'options': opts}, function() {
+				if (chrome.runtime.error) {
+					console.log("Runtime error.");
+				}
+			});
+		} catch (err) {
+			console.log("Chrome not pressent, can't save");
+			divs.debugText.val(JSON.stringify(opts, null, '\t'));
+			console.log(opts);
+		}
 	});
 }
 
@@ -310,8 +350,6 @@ function loadCallback (outerOpts) {
 	// load: options.options {a:1, b:2}
 	var opts = outerOpts.options; // the data will have my options in the thing called "options"
 	gopts = opts;
-	rawColorsText.value = opts.labels;
-	enabledCheck.checked = opts.enabled;
 	
 	prepList(opts);
 };
@@ -322,11 +360,12 @@ jQuery(document).ready(function() {
 	rawColorsText = document.getElementById("raw-colors");
 	enabledCheck  = document.getElementById("enabled");
 	
-	legacyBindings();
-	
 	divs = {
-			setting: $('.setting').detach().show(),
-			board:   $('.board').detach().show()
+			enabled  : $('#enabled'),
+			setting  : $('.setting').detach().show(),
+			board    : $('.board').detach().show(),
+			debugDiv : $('#debug'),
+			debugText: $('#debugbox')
 	}
 	
 	editor = createEditor(divs.board);
@@ -339,5 +378,10 @@ jQuery(document).ready(function() {
 		testMode = true;
 		loadCallback(stubOptions);
 	}
+	
+	if (testMode)
+		divs.debugDiv.show();
+	else
+		divs.debugDiv.hide();
 });
 
