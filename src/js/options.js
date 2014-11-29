@@ -316,7 +316,7 @@ function prepList(opts) {
 		var val = $.extend({}, emptyOption);
 		// Add it detached
 		//opts.labels[val.name] = val;
-		var setting = addSetting(container, val);
+		var setting = addSetting(opts, container, val);
 		editor.attach(setting);
 	});
 
@@ -335,6 +335,7 @@ function prepList(opts) {
 			divs.debugText.val(JSON.stringify(opts, null, '\t'));
 			console.log(opts);
 		}
+		window.close();
 	});
 }
 
@@ -348,7 +349,17 @@ function loadCallback (outerOpts) {
 	// Chrome will nest my object in one with the same name:
 	// save: options: {a:1, b:2}
 	// load: options.options {a:1, b:2}
-	var opts = outerOpts.options; // the data will have my options in the thing called "options"
+	var opts;
+	
+	// First time load
+	if (outerOpts.options === undefined) {
+		opts = stubOptions.options;
+	}
+	else {
+		// the data will have my options in the thing called "options"
+		opts = outerOpts.options;
+	}
+		
 	gopts = opts;
 	
 	prepList(opts);
@@ -379,9 +390,11 @@ jQuery(document).ready(function() {
 		loadCallback(stubOptions);
 	}
 	
-	if (testMode)
-		divs.debugDiv.show();
-	else
-		divs.debugDiv.hide();
+//	if (testMode) {
+//		divs.debugDiv.show();
+//		$('#options').css('margin-right', '380px');
+//	}
+//	else
+//		divs.debugDiv.hide();
 });
 

@@ -35,16 +35,30 @@ function colorizeTree($root) {
 		$elm = jQuery(this);
 		var tag = $elm.text();
 		var $elmToColor;
-		var labelInfo = labelMap.labels[tag];
-		// If there is a defined label, process it and color us
-		if (labelInfo) {
-			if (labelInfo.applyTo === 'label')
-				$elmToColor = $elm.parent();
-			else
-				$elmToColor = $elm.parent().parent();
+		
+		var cssReset = { 'color': '', 'background-color': '' };
+
+		var opt = labelMap.labels[tag];
+		
+		if (opt) { 
+			var css = jQuery.extend({}, cssReset);
+			if (opt.tagfg)
+				css['color'] = opt.tagfg;
+			if (opt.tagbg)
+				css['background-color'] = opt.tagbg;
+			$elm.parent().css(css).addClass(marker);
+			//$elm.parent().css('text-decoration', fields.otagnu.val() == 'true' ? 'none' : 'underline');
 			
-			// Color and mark
-			$elmToColor.css({'color': labelInfo.fg, 'background-color': labelInfo.bg}).addClass(marker);
+			css = jQuery.extend({}, cssReset);
+			if (opt.textfg)		css['color'] = opt.textfg;
+			if (opt.tagbg) {
+				css['background-color'] = opt.textbg;
+				css['border-radius'] = '6px';
+			}
+			else {
+				css['border-radius'] = '';
+			}
+			$elm.parent().parent().css(css).addClass(marker);
 		}
 		else {
 	    	// If the user just renamed a tag to something we don't colour
@@ -52,8 +66,27 @@ function colorizeTree($root) {
 			// however, this is not the case for coloring 'text', so we need to check
 			
 			if ($elm.parent().parent().hasClass(marker))
-				$elm.parent().parent().css({'color': '', 'background-color': ''}).removeClass(marker);
+				$elm.parent().parent().css(cssReset).removeClass(marker);
 		}
+		
+//		// If there is a defined label, process it and color us
+//		if (labelInfo) {
+//			if (labelInfo.applyTo === 'label')
+//				$elmToColor = $elm.parent();
+//			else
+//				$elmToColor = $elm.parent().parent();
+//			
+//			// Color and mark
+//			$elmToColor.css({'color': labelInfo.fg, 'background-color': labelInfo.bg}).addClass(marker);
+//		}
+//		else {
+//	    	// If the user just renamed a tag to something we don't colour
+//	    	// workflowy will recreate the nodes, loosing colour info, so no action required
+//			// however, this is not the case for coloring 'text', so we need to check
+//			
+//			if ($elm.parent().parent().hasClass(marker))
+//				$elm.parent().parent().css({'color': '', 'background-color': ''}).removeClass(marker);
+//		}
 	});
 }
 
@@ -87,10 +120,6 @@ function bindDOMUpdates() {
  * Disables the extension
  */
 function disable() {
-    // Clear any timers
-    if (timerUpdateNodes)
-        clearInterval(timerUpdateNodes);
-  
   // Clean up the markup
   jQuery('.wfc').css({'color': '', 'background-color': ''}).removeClass("wfc");
 }
@@ -106,22 +135,22 @@ function disable() {
 function processOptions(outerOpts) {
 	var loaded = false;
 	if (!chrome.runtime.error) {
-		var opts = outerOpts.options; // the data will have my options in the thing called "options"
-		try {
-			labelMap.enabled = opts.enabled == false ? false : true;
-			labelMap.labels = JSON.parse(opts.labels);
-			loaded = true;
+		var opts;
+		// First time load
+		if (outerOpts.options === undefined) {
+			opts = stubOptions.options;
 		}
-		catch (err) {
-			console.log("Failed to parse JSON");
-			alert("Proplem with the loaded options, restoring defaults");
+		else {
+			// the data will have my options in the thing called "options"
+			opts = outerOpts.options;
 		}
+		labelMap = opts;
+		loaded = true;
 	}
 	
 	if (!loaded) {
 		// Add defaults
-		labelMap.enabled = true;
-		labelMap.defaults();
+		labelMap = stubOptions;
 	}
 }
 
@@ -132,14 +161,19 @@ function processOptions(outerOpts) {
  */
 function optionsReloaded(outerOpts) {
 	processOptions(outerOpts);
-	// We were disabled
+	// We switched from enabled to disabled
 	if (prevEnabled && labelMap.enabled == false) {
 		disable();
 	}
-	// We were enabled
+	// We switched from disabled to enabled
 	else if (prevEnabled == false && labelMap.enabled == true) {
 		bindDOMUpdates();
 	}
+	// We were both previously and currently enabled
+	else if (labelMap.enabled) {
+		colorizeTree(jQuery(document));		
+	}
+		
 	prevEnabled = labelMap.enabled;
 };
 
@@ -180,6 +214,7 @@ jQuery(document).ready(function() {
 	*/
 	
 	// We start here
+	//optionsLoaded(stubOptions);
 	chrome.storage.sync.get("options", optionsLoaded);
 });
 

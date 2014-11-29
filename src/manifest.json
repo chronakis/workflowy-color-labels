@@ -28,7 +28,7 @@
   "content_scripts": [
     {
       "matches": [ "https://workflowy.com/", "http://workflowy.com/" ],
-      "js":      [ "js/lib/jquery.min.js", "js/modules/common.js", "js/content.js" ]
+      "js":      [ "js/lib/jquery.min.js", "js/modules/common.js", "js/modules/options-data.js", "js/content.js" ]
     },
     {
       "matches": [ "https://workflowy.com/", "http://workflowy.com/" ],

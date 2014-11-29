@@ -1,3 +1,8 @@
+html {
+	min-width: 760px;
+	min-height: 400px;
+}s
+
 body {
 	font-family: Helvetica, Ubuntu, Arial, sans-serif;
 }
@@ -21,7 +26,7 @@ h1 {
 }
 
 #options {
-	margin-right: 380px;
+	width: 600;
 	padding: 0px 10px;
 }
 
