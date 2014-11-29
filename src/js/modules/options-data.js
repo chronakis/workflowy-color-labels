@@ -18,6 +18,17 @@ var loremIpsoum = {
                    ]
 };
 
+var emptyOption = {
+		name: "newtag",
+		tag: false,
+		tagfg: null,
+		tagbg: null,
+		tagnu: null,
+		text: null,
+		textfg: null,
+		textbg: null
+};
+
 /**
  * stub options file
  */
@@ -30,6 +41,7 @@ var stubOptions = {
 					"fg" : "white",
 					"bg" : "tomato",
 					// New stuff
+					name: "next",
 					tag: true,
 					tagfg: null,
 					tagbg: "tomato",
@@ -44,6 +56,7 @@ var stubOptions = {
 					"fg": "black",
 					"bg": "lightpink",
 					// New stuff
+					name: "high",
 					tag: true,
 					tagfg: null,
 					tagbg: "lightpink",
@@ -58,6 +71,7 @@ var stubOptions = {
 					"fg": "black",
 					"bg": "orange",
 					// New stuff
+					name: "medium",
 					tag: true,
 					tagfg: null,
 					tagbg: "orange",
@@ -71,6 +85,7 @@ var stubOptions = {
 					"fg": "black",
 					"bg": "skyblue",
 					// New stuff
+					name: "low",
 					tag: true,
 					tagfg: null,
 					tagbg: "skyblue",
@@ -84,6 +99,7 @@ var stubOptions = {
 					"fg": "black",
 					"bg": "palegreen",
 					// New stuff
+					name: "issue",
 					tag: true,
 					tagfg: "black",
 					tagbg: "palegreen",
@@ -97,6 +113,7 @@ var stubOptions = {
 					"fg": "white",
 					"bg": "purple",
 					// New stuff
+					name: "upmc",
 					tag: true,
 					tagfg: null,
 					tagbg: "purple",
@@ -106,13 +123,14 @@ var stubOptions = {
 					textbg: null
 					
 				},
-				"urgent": {
+				"mark": {
 					"applyTo": "text",
 					"fg": "",
 					"bg": "yellow",
 					// New stuff
+					name: "mark",
 					tag: false,
-					tagfg: null,
+					tagfg: 'blue',
 					tagbg: null,
 					tagnu: null,
 					text: true,

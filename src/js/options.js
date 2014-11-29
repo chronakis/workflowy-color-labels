@@ -1,4 +1,4 @@
-/**
+/*
  * 
  * Copyright 2014 by Yiannis Chronakis <jchronakis@gmail.com>
  *
@@ -11,6 +11,19 @@
  * 
  * @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
  */
+
+/**
+ * The way options work:
+ * 1. On load, calling prepList
+ *    - creates a setting div per tag
+ *    - calls valToForm which translates value to form elements
+ *    - calls formToView which updates the previews
+ * 2. When the user attaches the editor
+ *    - calls formToEditor to update editor fields from the settings form
+ *    - binds the events in such a way that board form fields
+ *      update the setting hidden fields
+ * 3. Editor 
+ */
 var testMode;
 
 /** For debugging */
@@ -22,108 +35,267 @@ var enabledCheck;
 /** Holds some detachable divs */
 var divs;
 
+/** Holds the editor object */
+var editor;
 
-function attachEditor(setting, label) {
-	var board = divs.board.appendTo(setting);
+function createEditor(board) {
+	var editor = {
+			/** The setting being edited now */
+			settingEdited: null,
+			mainDiv   : board,
+			fields    : {
+				etag	: $('#etag'   , board),
+				etagfg	: $('#etagfg' , board),
+				etagbg	: $('#etagbg' , board),
+				etagnu	: $('#etagnu' , board),
+				etext	: $('#etext'  , board),
+				etextfg	: $('#etextfg', board),
+				etextbg	: $('#etextbg', board)
+			},
+//			metaFields: {     
+//				autotagfg : $('#autotagfg' , board),
+//				autotagbg : $('#autotagbg' , board),
+//				autotextfg: $('#autotextfg', board),
+//				autotextbg: $('#autotextbg', board)
+//			},
+//			enableOpts: function (owner) {
+//				$('.disabler', owner.parent().parent()).css('display', owner.prop('checked') ? 'none' : 'block');
+//			},
+			
+			_bindFields: function() {
+				var editor = this;
+//				this.fields.etag.click(function(e) {
+//					var check = $(this);
+//					editor.enableOpts(check);
+//				});
+//				this.fields.etext.click(function(e) {
+//					var check = $(this);
+//					editor.enableOpts(check);
+//				});
+			},
+			
+			detach: function() {
+				this.settingEdited = null;
+				board.detach();
+				$.each(this.fields, function(idx, field) {
+					field.off();
+					if (field.is(':checkbox'))
+						field.prop('checked', false);
+					else
+						field.val('');
+				});
+			},
+			
+			attach: function(setting) {
+				this.settingEdited = setting;
+				var board = this.mainDiv;
+				board.appendTo(setting.mainDiv);
+				
+				// Populate editor with fields
+				var fields = setting.fields;
+				var editor = this;
+				$.each(this.fields, function(idx, field) {
+					var other = setting.fields['o' + idx.substr(1)];
+					if (field.is(':checkbox')) {
+						field.prop('checked', other.val() == 'true').off().click(function(e){
+							console.log(idx + ": " + field.prop('checked'));
+								other.val(field.prop('checked')).change();
+							});
+					}
+					else if (field.is(':text')) {
+						field.val(other.val()).off().keyup(function(e){
+							other.val(field.val()).change();
+						});
+						
+					}
+				});
+				
+				// Do the bindings
+			}
+	};
 	
-	$('#tagcheck', board).prop('checked', label.tag).click(function(e){
-			
-		});
-	$('#tagautofg', board).prop('checked', label.tagfg ? true : false).click(function(e){
-			
-		});
-	$('#tagautobg', board).prop('checked', label.tagbg ? true : false).click(function(e){
-			
-		});
-	$('#tagfg', board).val(label.tagfg).keyup(function (e){
-		
-	});
-	$('#tagbg', board).val(label.tagbg).keyup(function (e){
-		
-	});
-
-	$('#textcheck', board).prop('checked', label.text);
-	$('#textautofg', board).prop('checked', label.textfg ? true : false);
-	$('#textautobg', board).prop('checked', label.textbg ? true : false);
-	$('#textfg', board).val(label.textfg).keyup(function (e){
-		
-	});
-	$('#textbg', board).val(label.textbg).keyup(function (e){
-		
-	});
-	
+	editor._bindFields();
+	return editor;
 }
 
 /**
- * Convert the board form values to a label value
+ * Takes a setting div and value from the settings
+ * and populates the hidden and creates the setting object
+ * @param val
+ * @param setting
  */
-function formToVal(setting) {
-	var res =  {
-		tag   : $('.otag'   , setting).val(),
-		tagfg : $('.otagfg' , setting).val(),
-		tagbg : $('.otagbg' , setting).val(),
-		tagnu : $('.otagnu' , setting).val(),
-		text  : $('.otext'  , setting).val(),
-		textfg: $('.otextfg', setting).val(),
-		textbg: $('.otextbg', setting).val()
-	};
+function createSetting(settingDiv, val) {
+	var res = {
+			val    : val,
+			mainDiv: settingDiv,
+			fields : {
+				// Note: Field to val mappings are
+				// filed: oNAME, val: NAME
+				// but we avoid automatic things here to have a proper list
+				oname   : $('.oname'  , settingDiv),
+				otag	: $('.otag'   , settingDiv),
+				otagfg	: $('.otagfg' , settingDiv),
+				otagbg	: $('.otagbg' , settingDiv),
+				otagnu	: $('.otagnu' , settingDiv),
+				otext	: $('.otext'  , settingDiv),
+				otextfg	: $('.otextfg', settingDiv),
+				otextbg	: $('.otextbg', settingDiv)
+			},
+			divs   : {
+				tag      : $('.contentTag'    , settingDiv),
+				tagText  : $('.contentTagText', settingDiv),
+				text     : $('.content'       , settingDiv),
+				textText : $('.contentText'    , settingDiv)
+			},
+			
+			/**
+			 * Binds local fields to preview
+			 * This meant to be used during initalization only
+			 */
+			_bindFields : function() {
+				var me = this;
+				$.each(this.fields, function (idx, field) {
+					if (idx == 'oname') {
+						this.keyup(function(e) {
+							me.divs.tagText.text($(this).val());
+						})
+					}
+					else {
+						this.change(function(e) {
+							me.updatePreview();
+						});
+					}
+				});
+			},
+			
+			/**
+			 * Destroys this setting
+			 */
+			destroy: function() {
+				$.each(this.fields, function (idx, field) {
+					field.off();
+				});
+				this.fields = null;
+				this.divs = null;
+				this.mainDiv.remove();
+			},
+			
+			/**
+			 * Sets the fields based on val,
+			 * optionally it assigns newval to val
+			 */
+			updateFields: function(newval) {
+				// Assign the new val, if present
+				if (newval)	this.val = newval;
+				
+				// make a copy because "this" changes in the $.each loop
+				var val = this.val;
+				$.each(this.fields, function (idx, field) {
+					// We can use this trick, since we have the same name
+					// between fields members and form inputs
+					field.val(val[idx.substr(1)]).change(); 
+				});
+			},
+
+			/**
+			 * updates the preview for a setting
+			 */
+			updatePreview: function() {
+				var fields = this.fields;
+				
+				var cssReset = {
+					'color': '',
+					'background-color': ''
+				};
+				
+//				if (fields.otag.val()) {
+					var css = $.extend({}, cssReset);
+					if (fields.otagfg.val())
+						css['color'] = fields.otagfg.val();
+					if (fields.otagbg.val())
+						css['background-color'] = fields.otagbg.val();
+					this.divs.tag.css(css);
+					this.divs.tagText.css('text-decoration', fields.otagnu.val() == 'true' ? 'none' : 'underline');
+//				}
+//				if (fields.otext.val()) {
+					var css = $.extend({}, cssReset);
+					if (fields.otextfg.val())
+						css['color'] = fields.otextfg.val();
+					if (fields.otextbg.val()) {
+						css['background-color'] = fields.otextbg.val();
+						css['border-radius'] = '6px';
+					}
+					else {
+						css['border-radius'] = '';
+					}
+					this.divs.text.css(css);
+//				}
+			},
+			
+			/**
+			 * Converts the hidden fields to a proper val for settings
+			 */
+			fieldsToVal: function() {
+				var res = {};
+				var val = this.val;
+				$.each(this.fields, function (idx, field) {
+					res[idx.substr(1)] = field.val(); 
+				});
+				return res;
+			}
+		};
+	
+	res._bindFields();
+	return res;
 }
 
-function updatePreview(setting, val) {
-	if (val.tag) {
-		var css = {};
-		if (val.tagfg)
-			css['color'] = val.tagfg;
-		if (val.tagbg)
-			css['background-color'] = val.tagbg;
-		$('.contentTag', setting).css(css);
-		$('.contentTagText', setting).css('text-decoration', val.tagnu ? 'none' : 'underline');
-	}
-	if (val.text) {
-		var css = {};
-		if (val.textfg)
-			css['color'] = val.textfg;
-		if (val.textbg) {
-			css['background-color'] = val.textbg;
-			css['border-radius'] = '6px';
-		}
-		$('.content', setting).css(css);
-	}
+/**
+ * This adds a new setting, after it creates it
+ * @param key name of the setting
+ * @param val the value
+ */
+function addSetting(opts, container, val) {
+	var setting = createSetting(divs.setting.clone());
+	
+	// Update the field values
+	setting.updateFields(val);
+	
+	// Create some initial sentenses
+	setting.divs.tagText.text(val.name);
+	setting.divs.textText.text(loremIpsoum.random());
+
+	// Bindings
+	var setDiv = setting.mainDiv;
+	$('.edit', setDiv).click(function(e) {
+		if (editor.settingEdited != setting)
+			editor.attach(setting);
+		else
+			editor.detach();
+	});
+	
+	$('.delete', setDiv).click(function(e) {
+		setting.destroy();
+		delete opts.labels[val.name];
+	});
+	
+	setDiv.appendTo(container);
+	
+	return setting;
 }
 
 function prepList(opts) {
 	var container = $('#options');
 	$.each(opts.labels, function(key, val) {
-		var setting = divs.setting.clone();
-		$('.tagname', setting).val(key);
-		$('.contentTagText', setting).text(key);
-		$('.contentText', setting).text(loremIpsoum.random());
-
-		$('.otag', setting).val(val.tag);
-		$('.otagfg', setting).val(val.tagfg);
-		$('.otagbg', setting).val(val.tagbg);
-		$('.otagnu', setting).val(val.tagnu);
-		$('.otext', setting).val(val.text);
-		$('.otextfg', setting).val(val.textfg);
-		$('.otextbg', setting).val(val.textbg);
-		
-		updatePreview(setting, val);
-		
-		
-		// Bindings
-		$('.edit', setting).click(function(e) {
-			attachEditor(setting, val);
-		});
-		
-		$('.delete', setting).click(function(e) {
-			setting.remove();
-		});
-		$('.tagname', setting).keyup(function(e) {
-			$('.contentTagText', setting).text($(this).val());
-		});
-		
-		setting.appendTo(container);
+		addSetting(opts, container, val);
 	});  
+
+	$('.pageactions .addrule').click(function(e) {
+		var val = $.extend({}, emptyOption);
+		// Add it detached
+		//opts.labels[val.name] = val;
+		var setting = addSetting(container, val);
+		editor.attach(setting);
+	});
 }
 
 /* Load stuff on load */
@@ -156,6 +328,8 @@ jQuery(document).ready(function() {
 			setting: $('.setting').detach().show(),
 			board:   $('.board').detach().show()
 	}
+	
+	editor = createEditor(divs.board);
 	
 	// Load and trigger everything
 	try {

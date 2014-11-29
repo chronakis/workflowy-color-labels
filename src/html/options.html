@@ -41,20 +41,32 @@
 		<label for="enabled">Extension is enabled</label>
 		<input type="checkbox" id="enabled" name="enabled"/>
 	</p>
+
+	<div class="pageactions">
+		<div class="actionleft">
+			<input type="button" name="addrule" class="addrule" value="Add new Rule"/>
+		</div>
+		<div class="actionright">
+			<input type="button" name="restore" class="restore" value="Restore Defaults"/>
+			<input type="button" name="cancel" class="cancel" value="Reload saved"/>
+			<input type="button" name="save" class="save" value="Save"/>
+		</div>
+	</div>
 	
 	<div class="setting" style="display: none;">
 		<div class="preview-outer">
 			<div class="preview-title">
 				<input type="button" class="edit" id="edit" value="E"/>
 				<input type="button" class="delete" id="delete" value="D"/>
-				<input type="text" class="tagname" value="#urgent"/>
-				<input type="hidden" class="otag">
-				<input type="hidden" class="otagfg">
-				<input type="hidden" class="otagbg">
-				<input type="hidden" class="otagnu">
-				<input type="hidden" class="otext">
-				<input type="hidden" class="otextfg">
-				<input type="hidden" class="otextbg">
+				<!-- All form fields should start with o -->
+				<input type="text" class="oname" value="#urgent"/>
+				<input type="hidden" class="otag sfield">
+				<input type="hidden" class="otagfg sfield">
+				<input type="hidden" class="otagbg sfield">
+				<input type="hidden" class="otagnu sfield">
+				<input type="hidden" class="otext sfield">
+				<input type="hidden" class="otextfg sfield">
+				<input type="hidden" class="otextbg sfield">
 			</div>
 			<div class="preview">
 				<div class="project task">
@@ -72,21 +84,24 @@
 	<div class="board" style="display:none">
 		<div class="tagopts">
 			<div class="opttitle">
-				<input type="checkbox" id="tagcheck"/>Colorize tag
+				<!-- <input type="checkbox" id="etag"/> -->Tag color (empty for auto *)
 			</div>
 			<div class="optbody">
-				<div class="coloropt">Color:  Auto: <input type="checkbox" id="tagautofg"/>, Custom: <input type="text" id="tagfg" /></div>
-				<div class="highlightopt">Highlight:  None: <input type="checkbox" id="tagautobg"/>, Custom: <input type="text" id="tagbg" /></div>
-				<div class="underlineopt">Do not underline: <input type="checkbox" id="tagnounder"/></div>
+				<div class="disabler"></div>
+				<div class="coloropt"><label for="etagfg">Color:</label><input type="text" id="etagfg" name="etagfg" /></div>
+				<div class="highlightopt"><label for="etagbg">Highlight:</label><input type="text" id="etagbg" name="etagbg" /></div>
+				<div class="underlineopt"><label for="etagnu">No underline: </label><input type="checkbox" id="etagnu" name="etagnu" /></div>
 			</div>
 		</div>
 		<div class="textopts">
 			<div class="opttitle">
-				<input type="checkbox" name="tagcheck" id="tagcheck"/>Colorize text
+				<!-- <input type="checkbox" name="tagcheck" id="etext"/>-->Text color (empty for auto *)
 			</div>
 			<div class="optbody">
-				<div class="coloropt">Color:  Auto: <input type="checkbox" id="textautofg"/>, Custom: <input type="text" id="texfg" /></div>
-				<div class="highlightopt">Highlight:  None: <input type="checkbox" id="textautobg"/>, Custom: <input type="text" id="textbg" /></div>
+				<div class="disabler"></div>
+				<div class="coloropt"><label for="etextfg">Color:</label><input type="text" id="etextfg" name="etextfg" /></div>
+				<div class="highlightopt"><label for="etextfg">Highlight:</label><input type="text" id="etextbg" name="etextbg" /></div>
+				<div class="note">* Auto means default, except when he highlight is dark.</div>
 			</div>
 		</div>
 		<div style="clear: left"></div>

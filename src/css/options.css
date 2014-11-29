@@ -28,8 +28,27 @@ h1 {
 	text-align: right;
 }
 
+
+.pageactions {
+	margin: 0 6px;
+	height: 36px;
+}
+
+.pageactions .actionleft {
+	float: left;
+}
+
+.pageactions .actionright {
+	float: right;
+}
+
 #proto-setting {
 	display: none;
+}
+
+.note {
+	font-size: .8em;
+	font-style: italic;
 }
 
 .setting {
@@ -74,7 +93,26 @@ h1 {
 	width: 48%;
 }
 
-.board .textpts {
+.board .textopts {
 	float: right;
 	width: 48%;
+}
+
+.board .optbody {
+	position: relative;
+}
+
+.board .optbody label {
+	display: inline-block;
+	width: 110px;
+}
+
+
+.disabler {
+	position: absolute;
+	top: 0; left: -5px; bottom: 0; right: 10px;
+	border-radius: 10px;
+	z-index: 10;
+	display: none;
+	background: rgba(255, 255, 255, .6);
 }
