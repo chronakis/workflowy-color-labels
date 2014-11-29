@@ -48,6 +48,13 @@
 				<input type="button" class="edit" id="edit" value="E"/>
 				<input type="button" class="delete" id="delete" value="D"/>
 				<input type="text" class="tagname" value="#urgent"/>
+				<input type="hidden" class="otag">
+				<input type="hidden" class="otagfg">
+				<input type="hidden" class="otagbg">
+				<input type="hidden" class="otagnu">
+				<input type="hidden" class="otext">
+				<input type="hidden" class="otextfg">
+				<input type="hidden" class="otextbg">
 			</div>
 			<div class="preview">
 				<div class="project task">
@@ -65,11 +72,11 @@
 	<div class="board" style="display:none">
 		<div class="tagopts">
 			<div class="opttitle">
-				<input type="checkbox" name="tagcheck" id="tagcheck"/>Colorize tag
+				<input type="checkbox" id="tagcheck"/>Colorize tag
 			</div>
 			<div class="optbody">
-				<div class="coloropt">Color:  Auto: <input type="checkbox" id="tagautofg"/>, Custom: <input type="text" id="tagfgbox" /></div>
-				<div class="highlightopt">Highlight:  None: <input type="checkbox" id="tagautobg"/>, Custom: <input type="text" id="tagbgbox" /></div>
+				<div class="coloropt">Color:  Auto: <input type="checkbox" id="tagautofg"/>, Custom: <input type="text" id="tagfg" /></div>
+				<div class="highlightopt">Highlight:  None: <input type="checkbox" id="tagautobg"/>, Custom: <input type="text" id="tagbg" /></div>
 				<div class="underlineopt">Do not underline: <input type="checkbox" id="tagnounder"/></div>
 			</div>
 		</div>
@@ -78,8 +85,8 @@
 				<input type="checkbox" name="tagcheck" id="tagcheck"/>Colorize text
 			</div>
 			<div class="optbody">
-				<div class="coloropt">Color:  Auto: <input type="checkbox" id="textautofg"/>, Custom: <input type="text" id="texfgbox" /></div>
-				<div class="highlightopt">Highlight:  None: <input type="checkbox" id="textautobg"/>, Custom: <input type="text" id="textbgbox" /></div>
+				<div class="coloropt">Color:  Auto: <input type="checkbox" id="textautofg"/>, Custom: <input type="text" id="texfg" /></div>
+				<div class="highlightopt">Highlight:  None: <input type="checkbox" id="textautobg"/>, Custom: <input type="text" id="textbg" /></div>
 			</div>
 		</div>
 		<div style="clear: left"></div>

@@ -33,6 +33,7 @@ h1 {
 }
 
 .setting {
+	margin-top: -2px;
 	border-radius: 8px;
 	border: 2px solid #eee;
 }

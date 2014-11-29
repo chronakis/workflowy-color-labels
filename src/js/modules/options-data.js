@@ -33,7 +33,7 @@ var stubOptions = {
 					tag: true,
 					tagfg: null,
 					tagbg: "tomato",
-					tagnounder: null,
+					tagnu: null,
 					text: false,
 					textfg: null,
 					textbg: null
@@ -47,7 +47,7 @@ var stubOptions = {
 					tag: true,
 					tagfg: null,
 					tagbg: "lightpink",
-					tagnounder: null,
+					tagnu: null,
 					text: false,
 					textfg: null,
 					textbg: null
@@ -61,7 +61,7 @@ var stubOptions = {
 					tag: true,
 					tagfg: null,
 					tagbg: "orange",
-					tagnounder: null,
+					tagnu: null,
 					text: false,
 					textfg: null,
 					textbg: null
@@ -74,7 +74,7 @@ var stubOptions = {
 					tag: true,
 					tagfg: null,
 					tagbg: "skyblue",
-					tagnounder: null,
+					tagnu: null,
 					text: false,
 					textfg: null,
 					textbg: null
@@ -87,7 +87,7 @@ var stubOptions = {
 					tag: true,
 					tagfg: "black",
 					tagbg: "palegreen",
-					tagnounder: null,
+					tagnu: null,
 					text: false,
 					textfg: null,
 					textbg: null
@@ -99,8 +99,8 @@ var stubOptions = {
 					// New stuff
 					tag: true,
 					tagfg: null,
-					tagbg: "purble",
-					tagnounder: null,
+					tagbg: "purple",
+					tagnu: null,
 					text: false,
 					textfg: null,
 					textbg: null
@@ -114,7 +114,7 @@ var stubOptions = {
 					tag: false,
 					tagfg: null,
 					tagbg: null,
-					tagnounder: null,
+					tagnu: null,
 					text: true,
 					textfg: null,
 					textbg: "yellow"					
