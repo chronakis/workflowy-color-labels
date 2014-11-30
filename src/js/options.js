@@ -56,26 +56,50 @@ function createEditor(board) {
 				etextfg	: $('#etextfg', board),
 				etextbg	: $('#etextbg', board)
 			},
-//			metaFields: {     
-//				autotagfg : $('#autotagfg' , board),
-//				autotagbg : $('#autotagbg' , board),
-//				autotextfg: $('#autotextfg', board),
-//				autotextbg: $('#autotextbg', board)
-//			},
-//			enableOpts: function (owner) {
-//				$('.disabler', owner.parent().parent()).css('display', owner.prop('checked') ? 'none' : 'block');
-//			},
 			
-			_bindFields: function() {
+			pickers: {
+				btagfg	: $('#btagfg' , board),
+				btagbg	: $('#btagbg' , board),
+				btextfg	: $('#btextfg', board),
+				btextbg	: $('#btextbg', board),
+				palette: [
+					        ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+					        ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+					        ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+					        ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+					        ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+					        ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+					        ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+					        ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+					    ]
+			},
+			
+			_bindButtons: function() {
 				var editor = this;
-//				this.fields.etag.click(function(e) {
-//					var check = $(this);
-//					editor.enableOpts(check);
-//				});
-//				this.fields.etext.click(function(e) {
-//					var check = $(this);
-//					editor.enableOpts(check);
-//				});
+				var fields = this.fields;
+				var pickers = this.pickers;
+				var opts = {
+					    showPaletteOnly: true,
+					    togglePaletteOnly: true,
+					    hideAfterPaletteSelect:true,
+					    togglePaletteMoreText: 'more colors',
+					    togglePaletteLessText: 'less colors',
+					    color: 'blanchedalmond',
+					    palette: pickers.palette						
+				};
+				
+				opts['change'] = function(color) { fields.etagfg.val(color.toHexString()).keyup(); };
+				pickers.btagfg.spectrum(opts);
+
+				opts['change'] = function(color) { fields.etagbg.val(color.toHexString()).keyup(); };
+				pickers.btagbg.spectrum(opts);
+				
+				opts['change'] = function(color) { fields.etextfg.val(color.toHexString()).keyup(); };
+				pickers.btextfg.spectrum(opts);
+				
+				opts['change'] = function(color) { fields.etextbg.val(color.toHexString()).keyup(); };
+				pickers.btextbg.spectrum(opts);
+				
 			},
 			
 			detach: function() {
@@ -100,6 +124,7 @@ function createEditor(board) {
 				var editor = this;
 				$.each(this.fields, function(idx, field) {
 					var other = setting.fields['o' + idx.substr(1)];
+					var picker = editor.pickers['b' + idx.substr(1)];
 					if (field.is(':checkbox')) {
 						field.prop('checked', other.val() == 'true').off().click(function(e){
 							console.log(idx + ": " + field.prop('checked'));
@@ -110,15 +135,118 @@ function createEditor(board) {
 						field.val(other.val()).off().keyup(function(e){
 							other.val(field.val()).change();
 						});
-						
+						picker.spectrum("set", field.val());
 					}
 				});
 				
-				// Do the bindings
-			}
+			},
+//			
+//			_buildColorMenu: function(menu, type) {
+//				menu.detach();
+//				menu.show();
+//				var colorList;
+//				if (type == 'fg') {
+//					colorList = colorUtil.namedColors.reverse();
+//				}
+//				else {
+//					colorList = ['white'].concat(colorUtil.namedColors);
+//				}
+//				var optstr = '<option></option>';
+//				
+//				menu.append($(optstr).text("auto").attr('value', 'auto'));
+//				//menu.append($(optstr).text("Default").attr('value', 'auto'));
+//				colorList.forEach(function(name) {
+//					var opt = $(optstr).text(name).attr('value', name);
+//					if (type == 'bg')
+//						opt.css('background-color', name);
+//					else 
+//						opt.css('color', name);
+//					menu.append(opt);
+//				});
+//				return menu;
+//			},
+//			
+//			menufg: null,
+//			menubg: null,
+//			
+//			namedColorMap: null,
+//			
+//			_buildColorMenus: function () {
+//				this.menufg = this._buildColorMenu($('#coloroptfg'), 'fg');
+//				this.menubg = this._buildColorMenu($('#coloroptbg'), 'bg');
+//				if (!this.namedColorMap)
+//					this.namedColorMap = colorUtil.buildNamedToHexMap($('.pageactions'));
+//			},
+//			
+//			showMenuFg: function(source, other) {
+//				var menu = this.menufg;
+//				var fg = source.val();
+//				var bg = other;
+//				
+//				var top = source.position().top + source.height() + 7;
+//				var left = source.position().left + 1;
+//				
+//				menu.css({top: top, left: left});
+//				
+//				// Check to see if we need to change the background
+//				if (bg && bg != 'auto') {
+//					//$('option', this.menufg).css('background', bg);
+//				}
+//				
+//				//$('option:first', this.menufg).css('color', )
+//				menu.off().change(function(e){
+//					source.val(this.value).keyup();
+//					menu.detach();
+//				});
+//				
+//				source.after(menu);
+//				$('body').mouseup(function(e) {
+//				    if (!$(e.target).closest(menu).length){
+//						menu.detach();
+//				    }
+//				});
+//				
+//				return menu;
+//			},
+//			
+//			showMenuBg: function(source, other) {
+//				var menu = this.menubg;
+//				var bg = source.val();
+//				var fg = other;
+//				
+//				var top = source.position().top + source.height() + 7;
+//				var left = source.position().left + 1;
+//				
+//				menu.css({top: top, left: left});
+//				
+//				// Check to see if we need to change the background
+//				if (fg && fg != 'auto') {
+//					//$('option', this.menubg).css('color', fg);
+//				}
+//				else {
+//					//$('option', this.menubg).css('color', colorUtil.autoColor(this.namedColorMap[bg]));
+//				}
+//				
+//				menu.off().change(function(e){
+//					source.val(this.value).keyup();
+//					menu.detach();
+//				});
+//
+//				source.after(menu);
+//				$('body').mouseup(function(e) {
+//				    if (!$(e.target).closest(menu).length){
+//						menu.detach();
+//				    }
+//				});
+//				
+//				source.after(menu);
+//				return menu;
+//			}
+			
 	};
 	
-	editor._bindFields();
+	editor._bindButtons();
+	//editor._buildColorMenus();
 	return editor;
 }
 

@@ -16,8 +16,10 @@
  -->
 <head>
 	<link rel="stylesheet" href="../css/options.css"/>
+	<link rel="stylesheet" href="../js/lib/spectrum.css"/>
 	<link rel="stylesheet" href="../css/options-preview.css"/>
 	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/lib/spectrum.js"></script>
 	<script type="text/javascript" src="../js/modules/common.js"></script>
 	<script type="text/javascript" src="../js/modules/options-data.js"></script>
 	<script type="text/javascript" src="../js/options.js"></script>
@@ -48,7 +50,7 @@
 			<input type="button" name="save" class="save" value="Save"/>
 		</div>
 	</div>
-	
+
 	<div class="setting" style="display: none;">
 		<div class="preview-outer">
 			<div class="preview-title">
@@ -77,15 +79,18 @@
 			</div>
 		</div>
 	</div>
+	<!-- 
+		<select id="coloroptfg" class="colormenu" size="10"></select>
+		<select id="coloroptbg" class="colormenu" size="10"></select>
+	 -->
 	<div class="board" style="display:none">
 		<div class="tagopts">
 			<div class="opttitle">
 				<!-- <input type="checkbox" id="etag"/> -->Tag color (empty for auto *)
 			</div>
 			<div class="optbody">
-				<div class="disabler"></div>
-				<div class="coloropt"><label for="etagfg">Color:</label><input type="text" id="etagfg" name="etagfg" /></div>
-				<div class="highlightopt"><label for="etagbg">Highlight:</label><input type="text" id="etagbg" name="etagbg" /></div>
+				<div class="coloropt"><label for="etagfg">Color:</label><input type="text" id="etagfg" name="etagfg" class="colorbox"/> <input type="text" id="btagfg" value=""/></div>
+				<div class="highlightopt"><label for="etagbg">Highlight:</label><input type="text" id="etagbg" name="etagbg" class="colorbox" /> <input type="text" id="btagbg" value=""/></div>
 				<div class="underlineopt"><label for="etagnu">No underline: </label><input type="checkbox" id="etagnu" name="etagnu" /></div>
 			</div>
 		</div>
@@ -94,9 +99,8 @@
 				<!-- <input type="checkbox" name="tagcheck" id="etext"/>-->Text color (empty for auto *)
 			</div>
 			<div class="optbody">
-				<div class="disabler"></div>
-				<div class="coloropt"><label for="etextfg">Color:</label><input type="text" id="etextfg" name="etextfg" /></div>
-				<div class="highlightopt"><label for="etextfg">Highlight:</label><input type="text" id="etextbg" name="etextbg" /></div>
+				<div class="coloropt"><label for="etextfg">Color:</label><input type="text" id="etextfg" name="etextfg" class="colorbox" /> <input type="text" id="btextfg" value=""/></div>
+				<div class="highlightopt"><label for="etextfg">Highlight:</label><input type="text" id="etextbg" name="etextbg" class="colorbox" /> <input type="text" id="btextbg" value=""/></div>
 				<div class="note">* Auto means default, except when he highlight is dark.</div>
 			</div>
 		</div>

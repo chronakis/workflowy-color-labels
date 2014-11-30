@@ -16,6 +16,10 @@ function Brightness(R, G, B)
 }
 ```
 
+Pseudocode (or c# code): Brightness(backgroundColor) < 130 ? Colors.White : Colors.Black;
+
+
+
 You can use the following to extract an rgb:
 ```
 function getRGB(jElm) {

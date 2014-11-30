@@ -113,12 +113,29 @@ h1 {
 	width: 110px;
 }
 
-
-.disabler {
-	position: absolute;
-	top: 0; left: -5px; bottom: 0; right: 10px;
-	border-radius: 10px;
-	z-index: 10;
-	display: none;
-	background: rgba(255, 255, 255, .6);
+.board .colorbox {
+	width: 12em;
 }
+
+select.colormenu {
+	position: absolute;
+	width: 15em;
+	border-radius: 5px;
+	z-index: 10;
+}
+.colormenu option {
+	padding: 2px 4px;
+	border: 2px solid rgba(0,0,0,0);
+	border-left: none;
+	border-right: none;
+}
+
+.colormenu option:hover {
+	border-color: blue;
+}
+
+.colormenu option:checked {
+	font-weight: bold;
+	background:none;
+}
+
