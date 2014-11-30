@@ -16,22 +16,11 @@ var stubOptions = {
 	options: {
 		enabled: true,
 		labels: {
-				"next": {
-					name: "next",
-					tag: true,
-					tagfg: null,
-					tagbg: "tomato",
-					tagnu: null,
-					text: false,
-					textfg: null,
-					textbg: null
-					
-				},
 				"high": {
 					name: "high",
 					tag: true,
-					tagfg: null,
-					tagbg: "lightpink",
+					tagfg: 'white',
+					tagbg: "tomato",
 					tagnu: null,
 					text: false,
 					textfg: null,
@@ -41,7 +30,7 @@ var stubOptions = {
 				"medium": {
 					name: "medium",
 					tag: true,
-					tagfg: null,
+					tagfg: 'black',
 					tagbg: "orange",
 					tagnu: null,
 					text: false,
@@ -51,33 +40,12 @@ var stubOptions = {
 				"low": {
 					name: "low",
 					tag: true,
-					tagfg: null,
-					tagbg: "skyblue",
-					tagnu: null,
-					text: false,
-					textfg: null,
-					textbg: null
-				},
-				"issue": {
-					name: "issue",
-					tag: true,
-					tagfg: "black",
+					tagfg: 'black',
 					tagbg: "palegreen",
 					tagnu: null,
 					text: false,
 					textfg: null,
 					textbg: null
-				},
-				"upmc": {
-					name: "upmc",
-					tag: true,
-					tagfg: null,
-					tagbg: "purple",
-					tagnu: null,
-					text: false,
-					textfg: null,
-					textbg: null
-					
 				},
 				"mark": {
 					name: "mark",

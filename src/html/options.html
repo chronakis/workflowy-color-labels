@@ -36,7 +36,7 @@
 <div id="options">
 	<h1>Label colors for Workflowy</h1>
 	<p>
-		<label for="enabled">Extension enabled (requires workflowy reload)</label>
+		<label for="enabled">Extension enabled (requires reload of workflowy.com)</label>
 		<input type="checkbox" id="enabled" name="enabled"/>
 	</p>
 
@@ -86,22 +86,22 @@
 	<div class="board" style="display:none">
 		<div class="tagopts">
 			<div class="opttitle">
-				<!-- <input type="checkbox" id="etag"/> -->Tag color (empty for auto *)
+				Tag <!--(empty for auto *)-->
 			</div>
 			<div class="optbody">
 				<div class="coloropt"><label for="etagfg">Color:</label><input type="text" id="etagfg" name="etagfg" class="colorbox"/> <input type="text" id="btagfg" value=""/></div>
-				<div class="highlightopt"><label for="etagbg">Highlight:</label><input type="text" id="etagbg" name="etagbg" class="colorbox" /> <input type="text" id="btagbg" value=""/></div>
-				<div class="underlineopt"><label for="etagnu">No underline: </label><input type="checkbox" id="etagnu" name="etagnu" /></div>
+				<div class="highlightopt"><label for="etagbg">Background:</label><input type="text" id="etagbg" name="etagbg" class="colorbox" /> <input type="text" id="btagbg" value=""/></div>
+				<div style="display: none;" class="underlineopt"><label for="etagnu">No underline: </label><input type="checkbox" id="etagnu" name="etagnu" /></div>
 			</div>
 		</div>
 		<div class="textopts">
 			<div class="opttitle">
-				<!-- <input type="checkbox" name="tagcheck" id="etext"/>-->Text color (empty for auto *)
+				Text<!--  (empty for auto *)-->
 			</div>
 			<div class="optbody">
 				<div class="coloropt"><label for="etextfg">Color:</label><input type="text" id="etextfg" name="etextfg" class="colorbox" /> <input type="text" id="btextfg" value=""/></div>
 				<div class="highlightopt"><label for="etextfg">Highlight:</label><input type="text" id="etextbg" name="etextbg" class="colorbox" /> <input type="text" id="btextbg" value=""/></div>
-				<div class="note">* Auto means default, except when he highlight is dark.</div>
+				<div style="display: none;" class="note">* Auto means default, except when he highlight is dark.</div>
 			</div>
 		</div>
 		<div style="clear: left"></div>
