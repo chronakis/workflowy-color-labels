@@ -110,32 +110,20 @@ h1 {
 
 .board .optbody label {
 	display: inline-block;
-	width: 110px;
+	width: 7em;
 }
 
 .board .colorbox {
-	width: 12em;
+	width: 10em;
 }
 
-select.colormenu {
-	position: absolute;
-	width: 15em;
-	border-radius: 5px;
-	z-index: 10;
-}
-.colormenu option {
-	padding: 2px 4px;
-	border: 2px solid rgba(0,0,0,0);
-	border-left: none;
-	border-right: none;
+/* Override spectrum size */
+.sp-preview {
+	height: 12px;
+	width: 2.5em;
 }
 
-.colormenu option:hover {
-	border-color: blue;
+.sp-dd {
+	padding: 0;
+	height: 10px;
 }
-
-.colormenu option:checked {
-	font-weight: bold;
-	background:none;
-}
-
