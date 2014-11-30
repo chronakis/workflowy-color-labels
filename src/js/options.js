@@ -337,7 +337,29 @@ function prepList(opts) {
 		}
 		window.close();
 	});
+	
+	$('.pageactions .loadsaved').click(function(e) {
+		clearForm();
+		loadCallback({options: opts});
+	});
+	
+	$('.pageactions .defaults').click(function(e) {
+		clearForm();
+		loadCallback(stubOptions);
+	});
 }
+
+/**
+ * Clears the form
+ */
+function clearForm() {
+	$('.pageactions input').off();
+	$.each(settings, function(idx, setting) {
+		setting.destroy();		
+		delete settings[idx];
+	});
+}
+
 
 /* Load stuff on load */
 function loadCallback (outerOpts) {

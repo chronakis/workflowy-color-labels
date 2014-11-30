@@ -1,5 +1,5 @@
 html {
-	min-width: 760px;
+	min-width: 660px;
 	min-height: 400px;
 }s
 
@@ -26,7 +26,7 @@ h1 {
 }
 
 #options {
-	width: 600;
+	width: 500;
 	padding: 0px 10px;
 }
 

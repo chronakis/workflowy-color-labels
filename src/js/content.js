@@ -48,23 +48,28 @@ function colorizeTree($root) {
 				css['background-color'] = opt.tagbg;
 			$elm.parent().css(css).addClass(marker);
 			//$elm.parent().css('text-decoration', fields.otagnu.val() == 'true' ? 'none' : 'underline');
-			
-			css = jQuery.extend({}, cssReset);
-			if (opt.textfg)		css['color'] = opt.textfg;
-			if (opt.tagbg) {
-				css['background-color'] = opt.textbg;
-				css['border-radius'] = '6px';
+		
+			// If we run it on empty background settings,
+			// and the first tag sets the background,
+			// if a second tag is present, it will reset it
+			if (opt.textfg || opt.textbg) {
+				css = jQuery.extend({}, cssReset);
+				if (opt.textfg)
+					css['color'] = opt.textfg;
+				if (opt.textbg) {
+					css['background-color'] = opt.textbg;
+					css['border-radius'] = '6px';
+				}
+				else {
+					css['border-radius'] = '';
+				}
+				$elm.parent().parent().css(css).addClass(marker);
 			}
-			else {
-				css['border-radius'] = '';
-			}
-			$elm.parent().parent().css(css).addClass(marker);
 		}
 		else {
 	    	// If the user just renamed a tag to something we don't colour
 	    	// workflowy will recreate the nodes, loosing colour info, so no action required
 			// however, this is not the case for coloring 'text', so we need to check
-			
 			if ($elm.parent().parent().hasClass(marker))
 				$elm.parent().parent().css(cssReset).removeClass(marker);
 		}
