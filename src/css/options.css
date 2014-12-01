@@ -1,16 +1,19 @@
 html {
 	min-width: 660px;
 	min-height: 400px;
-}s
+}
 
 body {
-	font-family: Helvetica, Ubuntu, Arial, sans-serif;
+	font-size: 16px;
+	font-family: helvetica, arial, sans-serif;
+	line-height: 1.2em;
 }
 	
 h1 {
 	font-size: 2em;
 }
 
+/*
 #debug {
 	float: right;
 	width: 360px;
@@ -25,19 +28,23 @@ h1 {
 	font-family: monospace;
 }
 
-#options {
-	width: 500;
-	padding: 0px 10px;
-}
 
 #bottom {
 	text-align: right;
 }
 
+*/
+
+#options {
+	font-size: 0.875em;
+	min-width: 50em;
+	max-width: 60em;
+	padding: 0px .7em;
+}
 
 .pageactions {
-	margin: 0 6px;
-	height: 36px;
+	margin: 0 .5em;
+	height: 2.5em;
 }
 
 .pageactions .actionleft {
@@ -48,10 +55,6 @@ h1 {
 	float: right;
 }
 
-#proto-setting {
-	display: none;
-}
-
 .note {
 	font-size: .8em;
 	font-style: italic;
@@ -59,32 +62,38 @@ h1 {
 
 .setting {
 	margin-top: -2px;
-	border-radius: 8px;
+	border-radius: .5em;
 	border: 2px solid #eee;
 }
 
 .preview-outer {
-	padding: 5px 5px;
-	margin: 0px 0;
+	padding: .3em .3em;
+	margin: 0;
 }
 
 .preview-title {
-	float: left;
-	padding:5px;
-	width: 200px;	
+	float:   left;
+	padding: .3em;
+	width:   18em;	
 }
 
+.preview-title .buttonbox {
+	display: inline;
+	border-right: thin solid #ddd;
+	margin-right: .3em;
+}
 .preview-title input[type=text] {
-	margin-left: 10px;	
+	margin-left: .3em;
+	width: 12em;
 }
 
 .preview {
-	margin-left: 220px;
-	padding: 0px 4px;	
+	margin-left: 18em;
+	padding: 0px .3em;	
 }
 
 .board {
-	padding: 8px;
+	padding: .5em;
 	line-height: 2em;
 	border-top: thin solid #eee;
 }
@@ -92,6 +101,10 @@ h1 {
 .board input[type=checkbox] {
 	margin-right: 10px;
 	vertical-align: text-top;
+}
+.board span.opttitle {
+	color: gray;
+	font-weight: bold;
 }
 
 .board .tagopts {

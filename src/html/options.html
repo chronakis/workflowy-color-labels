@@ -14,6 +14,7 @@
  * @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
  */
  -->
+<html>
 <head>
 	<link rel="stylesheet" href="../js/lib/spectrum.css"/>
 	<link rel="stylesheet" href="../css/options.css"/>
@@ -54,10 +55,13 @@
 	<div class="setting" style="display: none;">
 		<div class="preview-outer">
 			<div class="preview-title">
-				<input type="button" class="edit" id="edit" value="E"/>
-				<input type="button" class="delete" id="delete" value="D"/>
+				<div class="buttonbox">
+					<input type="button" class="edit" id="edit" value="E"/>
+					<input type="button" class="delete" id="delete" value="D"/>
+				</div>
+				
 				<!-- All form fields should start with o -->
-				<input type="text" class="oname" value="#urgent"/>
+				#<input type="text" class="oname" value="#urgent"/>
 				<input type="hidden" class="otag sfield">
 				<input type="hidden" class="otagfg sfield">
 				<input type="hidden" class="otagbg sfield">
@@ -85,21 +89,25 @@
 	 -->
 	<div class="board" style="display:none">
 		<div class="tagopts">
+		<!--
 			<div class="opttitle">
-				Tag <!--(empty for auto *)-->
+				Tag (empty for auto *)
 			</div>
+		-->
 			<div class="optbody">
-				<div class="coloropt"><label for="etagfg">Color:</label><input type="text" id="etagfg" name="etagfg" class="colorbox"/> <input type="text" id="btagfg" value=""/></div>
+				<div class="coloropt"><label for="etagfg"><span class="opttitle">Tag </span>color:</label><input type="text" id="etagfg" name="etagfg" class="colorbox"/> <input type="text" id="btagfg" value=""/></div>
 				<div class="highlightopt"><label for="etagbg">Background:</label><input type="text" id="etagbg" name="etagbg" class="colorbox" /> <input type="text" id="btagbg" value=""/></div>
 				<div style="display: none;" class="underlineopt"><label for="etagnu">No underline: </label><input type="checkbox" id="etagnu" name="etagnu" /></div>
 			</div>
 		</div>
 		<div class="textopts">
+		<!--
 			<div class="opttitle">
-				Text<!--  (empty for auto *)-->
+				Text (empty for auto *)
 			</div>
+		-->
 			<div class="optbody">
-				<div class="coloropt"><label for="etextfg">Color:</label><input type="text" id="etextfg" name="etextfg" class="colorbox" /> <input type="text" id="btextfg" value=""/></div>
+				<div class="coloropt"><label for="etextfg"><span class="opttitle">Text </span>color:</label><input type="text" id="etextfg" name="etextfg" class="colorbox" /> <input type="text" id="btextfg" value=""/></div>
 				<div class="highlightopt"><label for="etextfg">Highlight:</label><input type="text" id="etextbg" name="etextbg" class="colorbox" /> <input type="text" id="btextbg" value=""/></div>
 				<div style="display: none;" class="note">* Auto means default, except when he highlight is dark.</div>
 			</div>
@@ -109,3 +117,4 @@
 	
 </div>
 </body>
+</html>
