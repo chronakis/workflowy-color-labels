@@ -1,0 +1,4 @@
+/* This will correct the foreground when matching tags */
+.contentMatch {
+	color: gray;
+}
