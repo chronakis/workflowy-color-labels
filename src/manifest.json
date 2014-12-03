@@ -1,8 +1,9 @@
 {
-  "name": "Colorful labels for Workflowy",
-  "version": "0.2",
+  "name": "Colorful tags for WorkFlowy",
+  "short_name" : "wflowyColor",
+  "version": "0.2.2",
   "manifest_version": 2,
-  "description": "Allows to assign color to labels in Workflowy",
+  "description": "Allows to assign color to tags in Workflowy",
   "homepage_url": "http://github.com/chronakis",
   "icons": {
     "16": "images/icon-16.png",

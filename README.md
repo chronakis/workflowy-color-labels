@@ -1,9 +1,9 @@
-# Colourful labels for Workflowy
+# Colourful tags for Workflowy
 
 This is a chrome extension that allows you to add colour to workfloy lists.
 You can do this by assigning a colour to each label. Actually you have more control,
 such as changing text colour or background colour and choosing whether to apply the
-colours to the labels or to the while task.
+colours to the tags or to the while task.
 
 The result is something like this:
 
