@@ -7,7 +7,7 @@ colours to the labels or to the while task.
 
 The result is something like this:
 
-![Screenshot](webstore/screenshot-main.jpg)
+![Screenshot](webstore/screenshot-640x400-1.png)
 
 ## Licence
 This application is open source software and is available under [GPL v3.0](http://spdx.org/licenses/GPL-3.0+)

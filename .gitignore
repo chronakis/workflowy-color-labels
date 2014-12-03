@@ -1,3 +1,5 @@
 /.settings/
 .DS_Store
 *~
+/build/*.zip
+*.pem
